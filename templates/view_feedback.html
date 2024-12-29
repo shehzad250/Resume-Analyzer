@@ -1,0 +1,222 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Feedback</title>
+</head>
+<body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background: linear-gradient(135deg, #6a11cb, #2575fc); color: white;">
+    <div style="padding: 20px; max-width: 1000px; margin: 20px auto; background: #ffffff; border-radius: 10px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);">
+        <h1 style="text-align: center; color: #333;">User Feedback</h1>
+        <div style="overflow-x: auto; margin-top: 20px;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead style="background: #333; color: #fff;">
+                    <tr>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Username</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Date</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Feedback</th>
+                        <th style="padding: 10px; border: 1px solid #ddd;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for feedback in feedback_list %}
+                    <tr style="background-color: {% if loop.index0 % 2 == 0 %}#f9f9f9{% else %}#ffffff{% endif %};">
+                        <td style="padding: 10px; border: 1px solid #ddd; color: #333;">{{ feedback.username }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; color: #333;">{{ feedback.date }}</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; color: #333;">
+                            <strong>Word Count:</strong> {{ feedback.feedback_text.word_count }}<br>
+                            <strong>Keywords Found:</strong> {{ feedback.feedback_text.keywords_found | join(', ') }}<br>
+                            <strong>Suggestions:</strong> {{ feedback.feedback_text.suggestions | join('; ') }}
+                        </td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align: center;">
+                            <form action="{{ url_for('delete_feedback') }}" method="POST" style="margin: 0;">
+                                <input type="hidden" name="username" value="{{ feedback.username }}">
+                                <input type="hidden" name="date" value="{{ feedback.date }}">
+                                <button type="submit" style="padding: 8px 16px; color: #fff; background: #dc3545; border: none; border-radius: 5px; cursor: pointer;">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html> -->
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            overflow: hidden; /* Prevent extra scrollbars */
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: 10px;
+            width: 100%;
+            height: 100vh; /* Full viewport height */
+            padding: 0 10px;
+        }
+
+        .section {
+            background: #ffffff;
+            color: #333;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            flex: 1; /* Equal space for both sections */
+            padding: 15px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .current-feedback {
+            flex-grow: 1;
+            overflow-y: auto; /* Enable vertical scrolling */
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .suggestions ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .previous-feedback {
+            flex-grow: 1;
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background: #333;
+            color: #fff;
+            position: sticky; /* Keep headers fixed */
+            top: 0;
+            z-index: 1;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        .delete-button {
+            padding: 8px 12px;
+            color: #fff;
+            background: #dc3545;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Responsive Design for Small Screens */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Stack sections vertically */
+                height: auto;
+            }
+
+            .section {
+                flex: none; /* Remove equal space allocation */
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container"> 
+        <!-- Left Section: Current Resume Feedback -->
+        <div class="section">
+            <h2>Current Resume Feedback</h2>
+            <div class="current-feedback">
+                {% if feedback_list and feedback_list|length > 0 %}
+                    <strong>Word Count:</strong> {{ feedback_list[0].feedback_text.word_count }}<br>
+                    <strong>Keywords Found:</strong> {{ feedback_list[0].feedback_text.keywords_found | join(', ') }}<br>
+                    <div class="suggestions">
+                        <strong>Suggestions:</strong>
+                        <ul>
+                            {% for suggestion in feedback_list[0].feedback_text.suggestions %}
+                            <li>{{ suggestion }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    <p>No feedback available for the current resume.</p>
+                {% endif %}
+            </div>
+        </div> 
+
+        <!-- Right Section: Previous Feedback -->
+        <div class="section">
+            <h2>Previous Resumes Feedback</h2>
+            <div class="previous-feedback">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Date</th>
+                            <th>Feedback</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for feedback in feedback_list[1:] %}
+                        <tr>
+                            <td>{{ feedback.username }}</td>
+                            <td>{{ feedback.date }}</td>
+                            <td>
+                                <strong>Word Count:</strong> {{ feedback.feedback_text.word_count }}<br>
+                                <strong>Keywords Found:</strong> {{ feedback.feedback_text.keywords_found | join(', ') }}<br>
+                                <strong>Suggestions:</strong> {{ feedback.feedback_text.suggestions | join('; ') }}
+                            </td>
+                            <td style="text-align: center;">
+                                <form action="{{ url_for('delete_feedback') }}" method="POST" style="margin: 0;">
+                                    <input type="hidden" name="username" value="{{ feedback.username }}">
+                                    <input type="hidden" name="date" value="{{ feedback.date }}">
+                                    <button type="submit" class="delete-button">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

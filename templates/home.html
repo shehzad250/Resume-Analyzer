@@ -1,0 +1,198 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyzer - Home</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background: linear-gradient(135deg, #6a11cb, #2575fc); color: white; display: flex; justify-content: center; align-items: center; height: 100vh;">
+
+    
+    <div id="mySidebar" style="height: 100%; width: 0; position: fixed; top: 0; left: 0; background-color: #ffffff; overflow-x: hidden; transition: 0.5s; box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); z-index: 1000;">
+        <a href="javascript:void(0)" style="position: absolute; top: 10px; right: 20px; font-size: 1.5rem; color: #2575fc; text-decoration: none; cursor: pointer;" onclick="closeSidebar()">×</a>
+        <a href="{{ url_for('auth.login') }}" style="padding: 15px 20px; text-decoration: none; font-size: 1.2rem; color: #2575fc; display: block; transition: 0.3s;">Login</a>
+        <a href="{{ url_for('auth.signup') }}" style="padding: 15px 20px; text-decoration: none; font-size: 1.2rem; color: #2575fc; display: block; transition: 0.3s;">Sign Up</a>
+    </div>
+
+    
+    <button class="open-btn" style="position: absolute; top: 20px; left: 20px; font-size: 1.5rem; background-color: #ffffff; color: #2575fc; border: none; border-radius: 5px; padding: 10px 15px; cursor: pointer; box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);" onclick="openSidebar()">☰ Account</button>
+
+    <div class="content" style="margin-left: 0; transition: margin-left 0.5s; padding: 20px; text-align: center;">
+        <h1 style="font-size: 3rem; margin: 0; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);">Welcome to Resume Analyzer!</h1>
+        <p style="font-size: 1.2rem; margin-top: 10px;">Analyze your resumes effectively with detailed insights and feedback.</p>
+        <div class="button" style="margin-top: 20px;">
+            <a href="/upload" style="text-decoration: none; padding: 10px 20px; background-color: #ffffff; color: #2575fc; border-radius: 5px; font-size: 1rem; box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2); transition: 0.3s ease;">Upload Resume</a>
+        </div>
+    </div>
+
+    <script>
+        function openSidebar() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.querySelector(".content").style.marginLeft = "250px";
+        }
+
+        function closeSidebar() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.querySelector(".content").style.marginLeft = "0";
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analyzer - Home</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        #mySidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #ffffff;
+            overflow-x: hidden;
+            transition: 0.5s;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            padding-top: 60px;
+        }
+
+        #mySidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            color: #2575fc;
+            display: block;
+            transition: 0.3s;
+        }
+        
+        #mySidebar a.close-btn:hover {
+            background-color: red; /* Set background color to red on hover */
+        }
+        #mySidebar a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: #2575fc;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .open-btn { /*Account btn */
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            background-color: #ffffff;
+            color: #2575fc;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 20px;
+            cursor: pointer;
+            box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+            transition: 0.3s ease;
+        }
+
+        .open-btn:hover {
+            background-color: #2575fc;
+            color: #ffffff;
+        }
+
+        .content {
+            margin-left: 0;
+            transition: margin-left 0.5s;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .content h1 {
+            font-size: 3rem;
+            margin: 0;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+
+        .button {
+            margin-top: 30px;
+        }
+
+        .button a {  /*Upload Resume btn */
+            text-decoration: none;
+            padding: 14px 35px;
+            background-color: #ffffff;
+            color: #2575fc;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            transition: 0.3s ease;
+            display: inline-block;
+        }
+
+        .button a:hover {
+            background-color: #2575fc;
+            color: #ffffff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div id="mySidebar">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeSidebar()">×</a>
+        <a href="{{ url_for('auth.login') }}">Login</a>
+        <a href="{{ url_for('auth.signup') }}">Sign Up</a>
+    </div>
+
+    <!-- Main content -->
+    <button class="open-btn" onclick="openSidebar()">☰ Account</button>
+
+    <div class="content">
+        <h1>Welcome to Resume Analyzer!</h1>
+        <p>Analyze your resumes effectively with detailed insights and feedback.</p>
+        <div class="button">
+            <a href="/upload">Upload Resume</a>
+        </div>
+    </div>
+
+    <script>
+        function openSidebar() {
+            document.getElementById("mySidebar").style.width = "250px";
+            document.querySelector(".content").style.marginLeft = "250px";
+        }
+
+        function closeSidebar() {
+            document.getElementById("mySidebar").style.width = "0";
+            document.querySelector(".content").style.marginLeft = "0";
+        }
+    </script>
+</body>
+</html>

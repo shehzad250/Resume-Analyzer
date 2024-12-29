@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2em;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 1em;
+        }
+        p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .feedback-list {
+            margin-top: 20px;
+            padding: 0;
+            list-style: none;
+        }
+        .feedback-item {
+            background-color: #ffffff;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .feedback-item:hover {
+            transform: translateY(-3px);
+        }
+        .feedback-text {
+            color: #4caf50; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Analysis Results</h1>
+        <p>Below is the feedback on your uploaded resumes:</p>
+
+        <div class="feedback-list">
+            <ul>
+                <li class="feedback-item">
+                    <strong>Resume 1</strong> - Feedback: <span class="feedback-text">Excellent</span>
+                </li>
+                <li class="feedback-item">
+                    <strong>Resume 2</strong> - Feedback: <span class="feedback-text">Needs Improvement</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

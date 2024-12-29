@@ -1,0 +1,162 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Your Resume</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background: linear-gradient(135deg, #4a00e0, #8e2de2); display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <div style="background-color: #ffffff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); padding: 2em; max-width: 400px; width: 100%; text-align: center;">
+        <h2 style="font-size: 28px; color: #333; margin-bottom: 1em;">Upload Your Resume</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data" style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <label for="name" style="font-weight: bold; color: #555; align-self: flex-start; margin-top: 10px;">Name:</label>
+            <input type="text" id="name" name="name" required style="width: 100%; padding: 12px; margin-top: 5px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd; font-size: 1em; transition: all 0.3s;">
+
+            <label for="email" style="font-weight: bold; color: #555; align-self: flex-start; margin-top: 10px;">Email:</label>
+            <input type="email" id="email" name="email" required style="width: 100%; padding: 12px; margin-top: 5px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd; font-size: 1em; transition: all 0.3s;">
+
+            <label for="resume" style="font-weight: bold; color: #555; align-self: flex-start; margin-top: 10px;">Resume (PDF only):</label>
+            <input type="file" id="resume" name="resume" accept=".pdf" required style="width: 100%; padding: 12px; margin-top: 5px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ddd; font-size: 1em; transition: all 0.3s;">
+
+            <button type="submit" style="width: 100%; padding: 12px; color: #fff; background: linear-gradient(90deg, #4a00e0, #8e2de2); border: none; border-radius: 5px; cursor: pointer; font-size: 1em; margin-top: 15px; transition: background 0.3s, transform 0.3s;">Upload</button>
+        </form>
+    </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Your Resume</title>
+    <style>
+        /* Global styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        /* Main form container */
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 3em;
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Heading */
+        .form-container h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 1em;
+            font-weight: 600;
+        }
+
+        /* Form fields */
+        .form-container label {
+            font-weight: bold;
+            color: #555;
+            align-self: flex-start;
+            margin-top: 10px;
+            display: block;
+            text-align: left;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="email"],
+        .form-container input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .form-container input[type="text"]:focus,
+        .form-container input[type="email"]:focus,
+        .form-container input[type="file"]:focus {
+            outline: none;
+            border: 1px solid #8e2de2;
+            box-shadow: 0 0 8px rgba(142, 45, 226, 0.5);
+        }
+
+        /* Submit button with curved edges */
+        .form-container button {
+            width: 100%;
+            padding: 14px;
+            color: #fff;
+            background: linear-gradient(90deg, #4a00e0, #8e2de2);
+            border: none;
+            border-radius: 20px; /* Curved edges for the button */
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 15px;
+            transition: background 0.3s, transform 0.3s ease-in-out;
+        }
+
+        /* Button hover effect */
+        .form-container button:hover {
+            background: linear-gradient(90deg, #8e2de2, #4a00e0);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 2em;
+            }
+
+            .form-container h2 {
+                font-size: 24px;
+            }
+
+            .form-container input[type="text"],
+            .form-container input[type="email"],
+            .form-container input[type="file"] {
+                padding: 10px;
+            }
+
+            .form-container button {
+                padding: 12px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Form Container -->
+    <div class="form-container">
+        <h2>Upload Your Resume</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email address">
+
+            <label for="resume">Resume (PDF only):</label>
+            <input type="file" id="resume" name="resume" accept=".pdf" required>
+
+            <!-- Upload button with curved edges -->
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+
+</body>
+</html>
