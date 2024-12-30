@@ -182,9 +182,3 @@ if __name__ == '__main__':
     app.run(debug=True) #jo bhi error ho, wo terminal mai show hona chahiye, ye code ka kaam hai.
     # app.run(debug=True,port=8000) # hum port change kar sakte hai, is tarah   
 
-
-
-
-
-
-
