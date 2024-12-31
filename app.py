@@ -9,7 +9,7 @@ import sqlite3
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key' #your_secret_key
-app.config['UPLOAD_FOLDER'] = 'uploads/'  # Folder where resumes will be stored
+app.config['UPLOAD_FOLDER'] = 'static/uploads'  # Folder where resumes will be stored
 
 # Ensure upload folder exists
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
@@ -43,31 +43,49 @@ def upload_resume():
             return redirect(url_for('upload_resume'))
     return render_template('resume_upload.html')
     
-# Analysis route for displaying feedback
+# # Analysis route for displaying feedback
+# @app.route('/analyze/<filename>')
+# def analyze_resume(filename):
+#     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)    
+#     feedback = analyze_pdf(file_path)
+#     # Get the user's name from session
+#     username = session.get('username', 'Anonymous')
+#     # Store feedback in database
+#     store_feedback_in_db(username, feedback)
+#     return redirect(url_for('results_dashboard'))
+
+#     # Save feedback to the database
+#     conn = sqlite3.connect(r'D:\ResumeAnalyzer\database.db')
+#     # conn = sqlite3.connect('D:/ResumeAnalyzer/database.db')
+#     # conn = sqlite3.connect('D:\\ResumeAnalyzer\\database.db')
+#     cursor = conn.cursor()
+
+#     # Insert feedback into the database
+#     cursor.execute("""
+#         INSERT INTO feedback_table (username, date, feedback_text)
+#         VALUES (?, datetime('now'), ?)
+#     """, (session.get('username', 'Anonymous'), json.dumps(feedback)))  # Use the logged-in user's name if available
+
+#     conn.commit()
+#     conn.close()
+
 @app.route('/analyze/<filename>')
 def analyze_resume(filename):
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)    
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     feedback = analyze_pdf(file_path)
+    
     # Get the user's name from session
     username = session.get('username', 'Anonymous')
-    # Store feedback in database
+    
+    # Store feedback in session for current feedback
+    session['feedback'] = feedback
+    session['uploaded_pdf_path'] = file_path  # Store the PDF path in session
+
+    # Store feedback in the database
     store_feedback_in_db(username, feedback)
-    return redirect(url_for('results_dashboard'))
 
-    # Save feedback to the database
-    conn = sqlite3.connect(r'D:\ResumeAnalyzer\database.db')
-    # conn = sqlite3.connect('D:/ResumeAnalyzer/database.db')
-    # conn = sqlite3.connect('D:\\ResumeAnalyzer\\database.db')
-    cursor = conn.cursor()
+    return redirect(url_for('view_feedback'))  # Redirect to view feedback
 
-    # Insert feedback into the database
-    cursor.execute("""
-        INSERT INTO feedback_table (username, date, feedback_text)
-        VALUES (?, datetime('now'), ?)
-    """, (session.get('username', 'Anonymous'), json.dumps(feedback)))  # Use the logged-in user's name if available
-
-    conn.commit()
-    conn.close()
 
 def store_feedback_in_db(username, feedback):
     conn = sqlite3.connect(r'D:\ResumeAnalyzer\database.db')
@@ -126,10 +144,26 @@ def analyze_pdf(file_path):
     }
     return feedback
 
+# @app.route('/view_feedback')
+# def view_feedback():
+#     feedback_list = get_feedback_from_db()  # Ye line tumhare database se feedback data fetch karti hai
+#     return render_template('view_feedback.html', feedback_list=feedback_list)
+
 @app.route('/view_feedback')
 def view_feedback():
-    feedback_list = get_feedback_from_db()  # Ye line tumhare database se feedback data fetch karti hai
-    return render_template('view_feedback.html', feedback_list=feedback_list)
+    # Fetch feedback for the current resume from session
+    current_feedback = session.get('feedback', {})
+    uploaded_pdf_path = session.get('uploaded_pdf_path', '')  # PDF path
+    
+    # Fetch all previous feedback from the database
+    feedback_list = get_feedback_from_db()
+    
+    return render_template(
+        'view_feedback.html',
+        feedback_list=feedback_list,
+        current_feedback=current_feedback,
+        uploaded_pdf_path=uploaded_pdf_path
+    )
 
 def get_feedback_from_db():
     # Tumhare database ka naam

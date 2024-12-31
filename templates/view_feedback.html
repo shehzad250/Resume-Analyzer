@@ -11,180 +11,6 @@
             padding: 0;
             background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: white;
-            overflow: hidden; /* Prevent extra scrollbars */
-        }
-
-        .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: stretch;
-            gap: 10px;
-            width: 100%;
-            height: 100vh; /* Full viewport height */
-            padding: 0 10px;
-        }
-
-        .section {
-            background: #ffffff;
-            color: #333;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            flex: 1; /* Equal space for both sections */
-            padding: 15px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .section h2 {
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .current-feedback {
-            flex-grow: 1;
-            overflow-y: auto; /* Enable vertical scrolling */
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .suggestions ul {
-            padding-left: 20px;
-            margin: 10px 0;
-        }
-
-        .previous-feedback {
-            flex-grow: 1;
-            overflow-y: auto; /* Enable vertical scrolling */
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-
-        th, td {
-            padding: 8px;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background: #333;
-            color: #fff;
-            position: sticky; /* Keep headers fixed */
-            top: 0;
-            z-index: 1;
-        }
-
-        tr:nth-child(even) {
-            background: #f9f9f9;
-        }
-
-        tr:nth-child(odd) {
-            background: #ffffff;
-        }
-
-        .delete-button {
-            padding: 8px 12px;
-            color: #fff;
-            background: #dc3545;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        /* Responsive Design for Small Screens */
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column; /* Stack sections vertically */
-                height: auto;
-            }
-
-            .section {
-                flex: none; /* Remove equal space allocation */
-                margin-bottom: 15px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">  -->
-        <!-- Left Section: Current Resume Feedback -->
-        <!-- <div class="section">
-            <h2>Current Resume Feedback</h2>
-            <div class="current-feedback">
-                {% if feedback_list and feedback_list|length > 0 %}
-                    <strong>Word Count:</strong> {{ feedback_list[0].feedback_text.word_count }}<br>
-                    <strong>Keywords Found:</strong> {{ feedback_list[0].feedback_text.keywords_found | join(', ') }}<br>
-                    <div class="suggestions">
-                        <strong>Suggestions:</strong>
-                        <ul>
-                            {% for suggestion in feedback_list[0].feedback_text.suggestions %}
-                            <li>{{ suggestion }}</li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                {% else %}
-                    <p>No feedback available for the current resume.</p>
-                {% endif %}
-            </div>
-        </div>  -->
-
-        <!-- Right Section: Previous Feedback -->
-        <!-- <div class="section">
-            <h2>Previous Resumes Feedback</h2>
-            <div class="previous-feedback">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Username</th>
-                            <th>Date</th>
-                            <th>Feedback</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for feedback in feedback_list[1:] %}
-                        <tr>
-                            <td>{{ feedback.username }}</td>
-                            <td>{{ feedback.date }}</td>
-                            <td>
-                                <strong>Word Count:</strong> {{ feedback.feedback_text.word_count }}<br>
-                                <strong>Keywords Found:</strong> {{ feedback.feedback_text.keywords_found | join(', ') }}<br>
-                                <strong>Suggestions:</strong> {{ feedback.feedback_text.suggestions | join('; ') }}
-                            </td>
-                            <td style="text-align: center;">
-                                <form action="{{ url_for('delete_feedback') }}" method="POST" style="margin: 0;">
-                                    <input type="hidden" name="username" value="{{ feedback.username }}">
-                                    <input type="hidden" name="date" value="{{ feedback.date }}">
-                                    <button type="submit" class="delete-button">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</body>
-</html>  -->
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Feedback</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            color: white;
             overflow: hidden;
         }
 
@@ -282,9 +108,9 @@
         <button id="dropdownButton" class="dropdown-button" onclick="toggleSection()">View Previous Feedback</button>
     </div>
 
-    <div class="container">
+    <div class="container"> -->
         <!-- Current Feedback Section -->
-        <div id="currentFeedback" class="section active">
+        <!-- <div id="currentFeedback" class="section active">
             <h2>Current Resume Feedback</h2>
             <div>
                 {% if feedback_list and feedback_list|length > 0 %}
@@ -302,7 +128,220 @@
                     <p>No feedback available for the current resume.</p>
                 {% endif %}
             </div>
+        </div> -->
+
+        <!-- Previous Feedback Section -->
+        <!-- <div id="previousFeedback" class="section">
+            <h2>Previous Resumes Feedback</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Date</th>
+                        <th>Feedback</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for feedback in feedback_list[1:] %}
+                    <tr>
+                        <td>{{ feedback.username }}</td>
+                        <td>{{ feedback.date }}</td>
+                        <td>
+                            <strong>Word Count:</strong> {{ feedback.feedback_text.word_count }}<br>
+                            <strong>Keywords Found:</strong> {{ feedback.feedback_text.keywords_found | join(', ') }}<br>
+                            <strong>Suggestions:</strong> {{ feedback.feedback_text.suggestions | join('; ') }}
+                        </td>
+                        <td>
+                            <form action="{{ url_for('delete_feedback') }}" method="POST">
+                                <input type="hidden" name="username" value="{{ feedback.username }}">
+                                <input type="hidden" name="date" value="{{ feedback.date }}">
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
+    </div>
+
+    <script>
+        function toggleSection() {
+            const currentSection = document.getElementById('currentFeedback');
+            const previousSection = document.getElementById('previousFeedback');
+            const dropdownButton = document.getElementById('dropdownButton');
+
+            if (currentSection.classList.contains('active')) {
+                currentSection.classList.remove('active');
+                previousSection.classList.add('active');
+                dropdownButton.textContent = 'View Current Feedback';
+            } else {
+                currentSection.classList.add('active');
+                previousSection.classList.remove('active');
+                dropdownButton.textContent = 'View Previous Feedback';
+            }
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            overflow: hidden;
+        }
+
+        .dropdown-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            z-index: 100;
+        }
+
+        .dropdown-button {
+            background: black;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .section {
+            background: #ffffff;
+            color: #333;
+            flex: 1;
+            padding: 0;
+            height: 100vh;
+            overflow-y: auto;
+            display: none; /* By default, sections are hidden */
+        }
+
+        .section.active {
+            display: block; /* Only active section is displayed */
+        }
+
+        .section h2 {
+            text-align: center;
+            margin: 0;
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            padding: 10px;
+            z-index: 10;
+        }
+
+        .pdf-preview {
+            height: 50%;
+            border: none;
+            width: 100%;
+            background: #f0f0f0;
+        }
+
+        .feedback-section {
+            height: 50%;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        .suggestions ul {
+            padding-left: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background: #333;
+            color: #fff;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:nth-child(odd) {
+            background: #ffffff;
+        }
+
+        .delete-button {
+            padding: 8px 12px;
+            color: #fff;
+            background: #dc3545;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="dropdown-container">
+        <button id="dropdownButton" class="dropdown-button" onclick="toggleSection()">View Previous Feedback</button>
+    </div>
+
+    <div class="container">
+        <!-- Current Feedback Section -->
+        <div id="currentFeedback" class="section active">
+            <h2>Current Resume Feedback</h2>
+            <div>
+                <!-- PDF Preview Section -->
+                {% if uploaded_pdf_path %}
+                <iframe id="pdfPreview" class="pdf-preview" src="{{ uploaded_pdf_path }}"></iframe>
+                {% else %}
+                <p>No resume uploaded.</p>
+                {% endif %}
+        
+                <!-- Feedback Section -->
+                <div class="feedback-section">
+                    {% if current_feedback %}
+                        <strong>Word Count:</strong> {{ current_feedback.word_count }}<br>
+                        <strong>Keywords Found:</strong> {{ current_feedback.keywords_found | join(', ') }}<br>
+                        <div class="suggestions">
+                            <strong>Suggestions:</strong>
+                            <ul>
+                                {% for suggestion in current_feedback.suggestions %}
+                                <li>{{ suggestion }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% else %}
+                        <p>No feedback available for the current resume.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
 
         <!-- Previous Feedback Section -->
         <div id="previousFeedback" class="section">
@@ -359,3 +398,5 @@
     </script>
 </body>
 </html>
+
+
