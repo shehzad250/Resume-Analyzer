@@ -206,19 +206,28 @@
 
         .dropdown-container {
             position: fixed;
-            top: 0;
-            right: 0;
+            top: 10px;
+            right: 20px;
             z-index: 100;
         }
 
         .dropdown-button {
-            background: black;
+            /* background: black;
             color: white;
             padding: 10px 15px;
             border: none;
             border-radius: 5px;
+            cursor: pointer; */
+            background: #222;
+            color: #fff;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 25px;
             cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
         }
+        
 
         .container {
             display: flex;
@@ -233,7 +242,7 @@
             background: #ffffff;
             color: #333;
             flex: 1;
-            padding: 0;
+            padding: 7px;
             height: 100vh;
             overflow-y: auto;
             display: none; /* By default, sections are hidden */
@@ -246,18 +255,21 @@
         .section h2 {
             text-align: center;
             margin: 0;
-            position: sticky;
+            position: sticky;  /* Sticky header (Previous resume scroll na ho isliye) */
             top: 0;
             background: #ffffff;
             padding: 10px;
             z-index: 10;
+            color: #4e54c8
         }
 
         .pdf-preview {
             height: 50%;
-            border: none;
+            border: 3px solid #4e54c8;
+            border-radius: 10px;
             width: 100%;
             background: #f0f0f0;
+            margin-bottom: 20px;
         }
 
         .feedback-section {
@@ -274,34 +286,42 @@
             width: 100%;
             border-collapse: collapse;
             text-align: left;
+            margin-top: 10px;   /* Ye space de raha hai, Previous Resumes Feedback se*/
         }
 
         th, td {
             padding: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid #ddd;            
         }
 
         th {
-            background: #333;
+            background: #4e54c8;
             color: #fff;
-            text-align: center;
+            text-align: center; 
+                       
         }
 
         tr:nth-child(even) {
-            background: #f9f9f9;
+            background: #f9f9f9;  /* Previous feedback column color*/
         }
 
         tr:nth-child(odd) {
-            background: #ffffff;
+            /* background: #ffffff; */
+            background: #ADD8E6;
         }
 
         .delete-button {
-            padding: 8px 12px;
+            padding: 8px 15px;
             color: #fff;
             background: #dc3545;
             border: none;
-            border-radius: 5px;
+            border-radius: 20px;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .delete-button:hover {
+            background: #c0392b;
         }
     </style>
 </head>
