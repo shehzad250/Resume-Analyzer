@@ -6,6 +6,7 @@ import os
 import json
 import pdfplumber #pip install pdfplumber
 import sqlite3
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key' #your_secret_key
@@ -43,32 +44,7 @@ def upload_resume():
             return redirect(url_for('upload_resume'))
     return render_template('resume_upload.html')
     
-# # Analysis route for displaying feedback
-# @app.route('/analyze/<filename>')
-# def analyze_resume(filename):
-#     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)    
-#     feedback = analyze_pdf(file_path)
-#     # Get the user's name from session
-#     username = session.get('username', 'Anonymous')
-#     # Store feedback in database
-#     store_feedback_in_db(username, feedback)
-#     return redirect(url_for('results_dashboard'))
-
-#     # Save feedback to the database
-#     conn = sqlite3.connect(r'D:\ResumeAnalyzer\database.db')
-#     # conn = sqlite3.connect('D:/ResumeAnalyzer/database.db')
-#     # conn = sqlite3.connect('D:\\ResumeAnalyzer\\database.db')
-#     cursor = conn.cursor()
-
-#     # Insert feedback into the database
-#     cursor.execute("""
-#         INSERT INTO feedback_table (username, date, feedback_text)
-#         VALUES (?, datetime('now'), ?)
-#     """, (session.get('username', 'Anonymous'), json.dumps(feedback)))  # Use the logged-in user's name if available
-
-#     conn.commit()
-#     conn.close()
-
+# Analysis route for displaying feedback
 @app.route('/analyze/<filename>')
 def analyze_resume(filename):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
@@ -117,7 +93,7 @@ def download_file(filename):
     return send_file(file_path, as_attachment=True)
 
 def analyze_pdf(file_path):
-    keywords = ["Python", "Data Analysis", "Flask", "Excel", "Communication", "Decision making"]  # Sample keywords
+    keywords = ["Python", "Data Analysis", "Flask", "Excel", "Word", "Power Point", "Communication", "Decision making""Java", "C++", "JavaScript", "Ruby", "Swift", "Kotlin", "PHP", "TypeScript", "Rust", "R", "Perl", "Scala", "Dart", "Haskell", "Objective-C", "Shell"]  # Sample keywords
     suggestions = []
     
     with pdfplumber.open(file_path) as pdf:
@@ -144,14 +120,9 @@ def analyze_pdf(file_path):
     }
     return feedback
 
-# @app.route('/view_feedback')
-# def view_feedback():
-#     feedback_list = get_feedback_from_db()  # Ye line tumhare database se feedback data fetch karti hai
-#     return render_template('view_feedback.html', feedback_list=feedback_list)
 
 @app.route('/view_feedback')
 def view_feedback():
-    # Fetch feedback for the current resume from session
     current_feedback = session.get('feedback', {})
     uploaded_pdf_path = session.get('uploaded_pdf_path', '')  # PDF path
     
@@ -177,8 +148,6 @@ def get_feedback_from_db():
     
     formatted_feedback = []
     for feedback in feedback_list:
-        # Parse feedback JSON for display
-        #feedback_text = json.loads(feedback[2])
         try:
             feedback_text = json.loads(feedback[2])  # JSON parse karo
         except json.JSONDecodeError:
@@ -186,7 +155,8 @@ def get_feedback_from_db():
 
         formatted_feedback.append({
             'username': feedback[0],
-            'date': feedback[1],
+            # 'date': feedback[1],
+            'date': datetime.strptime(feedback[1], '%Y-%m-%d').strftime('%d-%m-%Y'),  # Format change
             'feedback_text': feedback_text
         })
     return formatted_feedback  
@@ -195,11 +165,9 @@ def get_feedback_from_db():
 def delete_feedback():
     username = request.form.get('username')
     date = request.form.get('date')
-    
     # Connect to the database and delete the record
     conn = sqlite3.connect(r'D:\ResumeAnalyzer\database.db')  
     cursor = conn.cursor()
-
     # Delete query
     cursor.execute(
         "DELETE FROM feedback_table WHERE username = ? AND date = ?",
@@ -210,6 +178,12 @@ def delete_feedback():
     
     flash("Feedback deleted successfully!", "success")
     return redirect(url_for('view_feedback'))
+
+@app.route('/logout', methods=['POST', 'GET'])
+def logout():
+    # Clear the session to log the user out
+    session.clear()
+    return redirect(url_for('login'))
   
 
 if __name__ == '__main__':

@@ -13,16 +13,18 @@
             color: white;
             overflow: hidden;
         }
-
+ 
         .dropdown-container {
             position: fixed;
             top: 10px;
             right: 20px;
             z-index: 100;
         }
-
-        .dropdown-button {
-            background: #222;
+ 
+        /* Common styles for both buttons */
+        .dropdown-button,
+        .logout-button {
+            background: #4e54c8;
             color: #fff;
             padding: 12px 18px;
             border: none;
@@ -31,8 +33,7 @@
             font-size: 14px;
             transition: background 0.3s;
         }
-        
-
+ 
         .container {
             display: flex;
             justify-content: center;
@@ -41,83 +42,82 @@
             height: 100vh;
             overflow: hidden;
         }
-
+ 
         .section {
             background: #ffffff;
-            color: #333;
+            color: #333;  /* Dark grey text color for Previous section Every column */
             flex: 1;
-            padding: 7px;
+            
             height: 100vh;
             overflow-y: auto;
+            /* Is scmmand se, scroll time par nahi dikh raha hai, But  */
+            padding: 0 15px;
             display: none; /* By default, sections are hidden */
         }
-
+ 
         .section.active {
             display: block; /* Only active section is displayed */
         }
-
-        .section h2 {
+ 
+        .section h2 {  /* Heading of the section for Current and Previous */
             text-align: center;
             margin: 0;
-            position: sticky;  /* Sticky header (Previous resume scroll na ho isliye) */
+            position: sticky;  /* Sticky header */
             top: 0;
             background: #ffffff;
-            padding: 10px;
+            padding: 13px;
             z-index: 10;
-            color: #4e54c8
+            color: #4e54c8;
         }
-
+ 
         .pdf-preview {
-            height: 50%;
+            height: 50vh;
             border: 3px solid #4e54c8;
             border-radius: 10px;
             width: 100%;
             background: #f0f0f0;
             margin-bottom: 20px;
         }
-
-        .feedback-section {
+ 
+         .feedback-section {
             height: 50%;
             overflow-y: auto;
             padding: 10px;
         }
-
-        .suggestions ul {
+ 
+         .suggestions ul {
             padding-left: 20px;
         }
-
+ 
         table {
             width: 100%;
             border-collapse: collapse;
             text-align: left;
-            margin-top: 10px;   /* Ye space de raha hai, Previous Resumes Feedback se*/
+            margin-top: 10px;
         }
-
+ 
         th, td {
             padding: 8px;
-            border: 1px solid #ddd;            
+            border: 1px solid #ddd;
         }
-
+ 
         th {
             background: #4e54c8;
             color: #fff;
-            text-align: center; 
-
+            text-align: center;
             position: sticky;
             top: 45px;
             z-index: 5;
-                       
         }
-
+ 
         tr:nth-child(even) {
-            background: #f9f9f9;  /* Previous feedback column color*/
+            background: #f9f9f9;
         }
-
-        tr:nth-child(odd) {
-            /* background: #ffffff; */
+ 
+         tr:nth-child(odd) {
             background: #ADD8E6;
         }
-
+ 
         .delete-button {
             padding: 8px 15px;
             color: #fff;
@@ -127,9 +127,101 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-
+ 
         .delete-button:hover {
             background: #c0392b;
+        }
+ 
+        .info-sections {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+ 
+        .info-section {
+            flex: 1;
+            background: #ffffff;
+            color: #333;
+            border-radius: 20px;
+            margin: 0 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 3px solid #4e54c8;
+        }
+ 
+        .info-section h3 {
+            color: #4e54c8;
+            margin-bottom: 10px;
+        }
+ 
+        .curve-rectangle { /*Resume's Name section */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px auto;
+            width: 90%;
+            height: 60px;
+            background: #ffffff;
+            color: #4e54c8;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 3px solid #4e54c8;
+            font-size: 18px;
+            font-weight: bold;
+             
+        }
+
+         /* Add this for Left-Top Logout Button */
+        .logout-container {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            z-index: 100;
+        }
+
+        /* Specific style for Logout button */
+        .logout-button {
+            background: #f44336; /* Red background for logout */
+        }
+
+        .logout-button:hover {
+            background: #d32f2f;
+        }
+
+        /* Pop-up Style */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            color: #333;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 200;
+            border: 3px solid red;
+        }
+
+        .popup button {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .popup .confirm {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .popup .cancel {
+            background: #f44336;
+            color: white;
         }
     </style>
 </head>
@@ -138,6 +230,19 @@
         <button id="dropdownButton" class="dropdown-button" onclick="toggleSection()">View Previous Feedback</button>
     </div>
 
+    <!-- Logout Button -->
+    <div class="logout-container">
+        <button id="logoutButton" class="logout-button">Logout</button>
+    </div>
+
+    <!-- Pop-up for Logout Confirmation -->
+    <div id="logoutPopup" class="popup">
+        <p>Are you sure you want to logout?</p>
+        <button class="confirm" onclick="logout()">Yes</button>
+        <button class="cancel" onclick="closePopup()">No</button>
+    </div>
+
+ 
     <div class="container">
         <!-- Current Feedback Section -->
         <div id="currentFeedback" class="section active">
@@ -149,7 +254,7 @@
                 {% else %}
                 <p>No resume uploaded.</p>
                 {% endif %}
-        
+ 
                 <!-- Feedback Section -->
                 <div class="feedback-section">
                     {% if current_feedback %}
@@ -168,9 +273,29 @@
                     {% endif %}
                 </div>
             </div>
+ 
+            <!-- New Curved Rectangle -->
+            <div class="curve-rectangle">
+                Resumer's Name
+            </div>
+ 
+            <!-- Info Sections -->
+            <div class="info-sections">
+                <div class="info-section">
+                    <h3>Skills</h3>
+                    <p>Highlight your key skills relevant to the job.</p>
+                </div>
+                <div class="info-section">
+                    <h3>Education</h3>
+                    <p>Include your educational background and achievements.</p>
+                </div>
+                <div class="info-section">
+                    <h3>Experience</h3>
+                    <p>Detail your professional experience and accomplishments.</p>
+                </div>
+            </div>
         </div>
-        
-
+ 
         <!-- Previous Feedback Section -->
         <div id="previousFeedback" class="section">
             <h2>Previous Resumes Feedback</h2>
@@ -206,13 +331,29 @@
             </table>
         </div>
     </div>
-
+ 
     <script>
+        // Show Pop-up when Logout button is clicked
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            document.getElementById('logoutPopup').style.display = 'block';
+        });
+
+        // Close Pop-up if No is clicked
+        function closePopup() {
+            document.getElementById('logoutPopup').style.display = 'none';
+        }
+
+        // Perform Logout and Redirect to Login Page
+        function logout() {
+            // Logout logic (e.g., clear session) and redirect to login page
+            window.location.href = "{{ url_for('auth.logout') }}";  // Make sure this matches your Flask route
+        }
+        
         function toggleSection() {
             const currentSection = document.getElementById('currentFeedback');
             const previousSection = document.getElementById('previousFeedback');
             const dropdownButton = document.getElementById('dropdownButton');
-
+ 
             if (currentSection.classList.contains('active')) {
                 currentSection.classList.remove('active');
                 previousSection.classList.add('active');
@@ -226,5 +367,7 @@
     </script>
 </body>
 </html>
+
+
 
 

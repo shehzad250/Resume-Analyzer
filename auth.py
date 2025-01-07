@@ -72,3 +72,10 @@ def login():
             flash('Invalid email or password.', 'danger')
 
     return render_template('login.html')
+
+@auth_blueprint.route('/logout')
+def logout():
+    session.pop('user_id', None)  # Remove user_id from session
+    flash('You have been logged out successfully.', 'info')  # Flash message
+    return redirect(url_for('auth.login'))  # Redirect to login page
+
