@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create an Account</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4a00e0, #8e2de2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .signup-container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2em;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .signup-container h1 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 1em;
+        }
+
+        .form-group {
+            position: relative;
+            width: 100%;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #555;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            padding-right: 40px; /* Adjust for icon space */
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: all 0.3s;
+        }
+
+        .form-group .icon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 10px;
+            font-size: 1.2em;
+            color: #555;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            color: #fff;
+            background: linear-gradient(90deg, #4a00e0, #8e2de2);
+            border: none;
+            border-radius: 25px; /* Complete curve */
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 15px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #3b00c3, #731bd9);
+            transform: scale(1.02);
+        }
+
+        p {
+            margin-top: 20px;
+            color: #555;
+        }
+
+        p a {
+            color: #6200ea;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        p a:hover {
+            color: #4a00e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <h1>Create an Account</h1>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul style="list-style: none; padding: 0;">
+                {% for category, message in messages %}
+                <li style="color: {% if category == 'success' %}green{% else %}red{% endif %};">
+                    {{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}
+
+        <form action="/signup" method="post">
+            <div class="form-group">
+                <label for="username">Name:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <span class="icon" id="toggle-password">&#128065;</span>
+            </div>
+
+            <button type="submit">Sign Up</button>
+
+            <p>Already have an account? <a href="/login">Log in</a></p>
+        </form>
+    </div>
+
+    <script>
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordField = document.getElementById('password');
+
+        togglePassword.addEventListener('click', () => {
+            const type = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = type;
+            togglePassword.textContent = type === 'password' ? '👁' : '👁‍🗨'; // Changes icon (eye open/closed)
+        });
+    </script>
+</body>
+</html>
