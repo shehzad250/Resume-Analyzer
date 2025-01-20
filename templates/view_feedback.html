@@ -278,24 +278,49 @@
  
             <!-- New Curved Rectangle -->
             <div class="curve-rectangle">
-                Resumer's Name
+                {% if user_data %}
+                    {{ user_data['Name'] }}
+                {% else %}
+                    Resumer's Name
+                {% endif %}
             </div>
- 
+
             <!-- Info Sections -->
             <div class="info-sections">
                 <div class="info-section">
                     <h3>Skills</h3>
-                    <p>Highlight your key skills relevant to the job.</p>
+                    {% if user_data %}
+                        <ul>
+                            {% for skill in user_data['Skills'] %}
+                                <li>{{ skill }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Highlight your key skills relevant to the job.</p>
+                    {% endif %}
                 </div>
                 <div class="info-section">
                     <h3>Education</h3>
-                    <p>Include your educational background and achievements.</p>
+                    {% if user_data %}
+                        <ul>
+                            {% for edu in user_data['Education'] %}
+                                <li>{{ edu }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Include your educational background and achievements.</p>
+                    {% endif %}
                 </div>
                 <div class="info-section">
                     <h3>Experience</h3>
-                    <p>Detail your professional experience and accomplishments.</p>
+                    {% if user_data %}
+                        <p>{{ user_data['Experience'] }}</p>
+                    {% else %}
+                        <p>Detail your professional experience and accomplishments.</p>
+                    {% endif %}
                 </div>
             </div>
+
         </div>
  
         <!-- Previous Feedback Section -->
