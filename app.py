@@ -11,7 +11,7 @@ from data import data_dict
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret_key'  # your_secret_key
+app.config['SECRET_KEY'] = 'secret_key'  
 app.config['UPLOAD_FOLDER'] = 'static/uploads'  # Folder where resumes will be stored
 
 # Ensure upload folder exists
@@ -95,7 +95,7 @@ def download_file(filename):
     return send_file(file_path, as_attachment=True)
 
 def analyze_pdf(file_path):
-    keywords = ["Python", "Data Analysis", "Flask", "Excel", "Word", "Power Point", "Communication", "Decision making", "Java", "C++", "JavaScript", "Ruby", "Swift", "Kotlin", "PHP", "TypeScript", "Rust", "R", "Perl", "Scala", "Dart", "Haskell", "Objective-C", "Shell"]  # Sample keywords
+    keywords = ["Python", "Data Analysis", "Flask", "Excel", "Word", "Power Point", "Communication", "Decision making", "Java", "C++", "JavaScript", "Ruby", "Swift", "Kotlin", "PHP", "TypeScript", "Rust", "Perl", "Scala", "Dart", "Haskell", "Objective-C", "Shell"]  # Sample keywords
     suggestions = []
 
     with pdfplumber.open(file_path) as pdf:

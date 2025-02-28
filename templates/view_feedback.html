@@ -137,6 +137,7 @@
             justify-content: space-between;
             flex-wrap: wrap; /* Ensures proper layout for future sections */
             margin-top: 20px;
+            gap: 20px; /* Adds space between the sections */
         }
  
         .info-section {
@@ -147,7 +148,6 @@
             border-radius: 20px;
             margin: 10px;   
             padding: 20px;
-            text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             border: 3px solid #4e54c8;
         }
@@ -155,6 +155,18 @@
         .info-section h3 {
             color: #4e54c8;
             margin-bottom: 10px;
+            text-align: center;
+            
+        }
+        
+        /* Remove bullet points 
+        .info-section ul {
+            list-style-type: none; 
+            padding: 0;
+        } */
+
+        .info-section ul li {
+            margin-bottom: 8px; /* Adds space between the list items */
         }
  
         .curve-rectangle { /*Resume's Name section */
@@ -258,7 +270,7 @@
                 {% endif %}
  
                 <!-- Feedback Section -->
-                <div class="feedback-section">
+                <!-- <div class="feedback-section">
                     {% if current_feedback %}
                         <strong>Word Count:</strong> {{ current_feedback.word_count }}<br>
                         <strong>Keywords Found:</strong> {{ current_feedback.keywords_found | join(', ') }}<br>
@@ -273,7 +285,7 @@
                     {% else %}
                         <p>No feedback available for the current resume.</p>
                     {% endif %}
-                </div>
+                </div> -->
             </div>
  
             <!-- New Curved Rectangle -->
