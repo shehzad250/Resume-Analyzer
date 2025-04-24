@@ -65,9 +65,7 @@ def login():
         # Validate user credentials
         if user and bcrypt.check_password_hash(user[3], password):
             session['user_id'] = user[0]
-            flash('Login successful!', 'success')
             return redirect(url_for('home'))
-            # return redirect(url_for('upload_resume'))
         else:
             flash('Invalid email or password.', 'danger')
 
@@ -76,6 +74,5 @@ def login():
 @auth_blueprint.route('/logout')
 def logout():
     session.pop('user_id', None)  # Remove user_id from session
-    flash('You have been logged out successfully.', 'info')  # Flash message
     return redirect(url_for('auth.login'))  # Redirect to login page
 

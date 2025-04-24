@@ -13,7 +13,7 @@
             color: white;
             overflow: hidden;
         }
- 
+        
         .dropdown-container {
             position: fixed;
             top: 10px;
@@ -159,12 +159,6 @@
             
         }
         
-        /* Remove bullet points 
-        .info-section ul {
-            list-style-type: none; 
-            padding: 0;
-        } */
-
         .info-section ul li {
             margin-bottom: 8px; /* Adds space between the list items */
         }
@@ -236,6 +230,28 @@
         .popup .cancel {
             background: #f44336;
             color: white;
+        }
+
+        #flash-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10cm;
+            height: 3cm;
+            background-color: #ffebee; /* light red background */
+            color: #b71c1c; /* dark red text */
+            border: 2px solid #ef5350; /* red border */
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            text-align: center;
+            padding: 10px;
         }
     </style>
 </head>
@@ -317,6 +333,18 @@
             </div>
 
         </div>
+        
+        <!-- delete btn ke liye -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div id="flash-message">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
  
         <!-- Previous Feedback Section -->
         <div id="previousFeedback" class="section">
@@ -353,7 +381,7 @@
             </table>
         </div>
     </div>
- 
+
     <script>
         // Show Pop-up when Logout button is clicked
         document.getElementById('logoutButton').addEventListener('click', function() {
@@ -375,7 +403,7 @@
             const currentSection = document.getElementById('currentFeedback');
             const previousSection = document.getElementById('previousFeedback');
             const dropdownButton = document.getElementById('dropdownButton');
- 
+
             if (currentSection.classList.contains('active')) {
                 currentSection.classList.remove('active');
                 previousSection.classList.add('active');
@@ -386,10 +414,12 @@
                 dropdownButton.textContent = 'View Previous Feedback';
             }
         }
+        setTimeout(function () { // Delete btn ke liye time
+            var flash = document.getElementById("flash-message");
+            if (flash) {
+            flash.style.display = "none";
+            }
+        }, 2000); // 2 seconds
     </script>
 </body>
 </html>
-
-
-
-

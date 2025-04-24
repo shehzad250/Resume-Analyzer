@@ -28,30 +28,6 @@ data_dict = {
         ],
         "Experience": "Fresher"
     },
-    "khushboo": {
-        "Name": "Khushboo Saroj",
-        "Education": [
-            "Bachelor of Computer Science (Final Year) | Mumbai University | Expected Completion: 2025",
-            "Focus on programming, software development, and database management.",
-            "MS-CIT (Maharashtra State Certificate in Information Technology)",
-            "Advanced Tally Certification | Mazzarello Professional Academy | 2019 - 2022",
-            "Advanced Excel Certification"
-        ],
-        "Skills": [
-            "Programming Languages: C, Java, JavaScript",
-            "Database Management: MongoDB",
-            "Programming Languages: Python",
-            "Database Management: MySQL",
-            "Software and Tools: Advanced Excel, Tally, MS-Office",
-            "Web Development: HTML, CSS, Bootstrap 5"
-        ],
-        "Experience": [
-            "Keerti Computer Institute (2023 - Present): Computer Trainer\nCore Responsibilities: Train students in software development (focus on Python, HTML/CSS/JavaScript, C, SQL). Adapt content delivery based on student progress to ensure hands-on learning and technical comprehension.\nKey Achievements: Led a successful curriculum update, integrating project-based modules that increased engagement and reduced dropout rates by 30%. Created and maintained an internal knowledge base, reducing technical support requests by 20%.",
-            "S-tek IT Education (2022 - 2023, Part-Time): Computer Trainer\nCore Responsibilities: Conducted training in HTML, CSS, JavaScript, and C with a real-world, practical focus. Evaluated student progress and offered personalized improvement plans.\nKey Achievements: Developed project-based curriculum materials to enhance practical application skills. Created video tutorials, reducing lesson time and increasing student autonomy by 15%.",
-            "Auxilium Skills Academy (2022 - 2023): Centre Manager / Computer Trainer\nCore Responsibilities: Managed center operations, including scheduling, instructor coordination, and program administration. Led training sessions in Tally, Excel, and other basic computer subjects.\nKey Achievements: Launched online workshops, increasing course accessibility by 40%. Standardized training materials, improving delivery efficiency by 30%. Achieved a 95% student satisfaction rate through structured feedback and curriculum updates.",
-            "Mazzarello Professional Academy (2019 - 2022): Computer Trainer\nCore Responsibilities: Conducted training on Tally, advanced MS Excel, and basic programming skills. Mentored students on professional skills, providing job-ready training for technical roles."
-        ]
-    },
     "ritesh": {
         "Name": "Ritesh S. Patwa",
         "Education": [

@@ -159,11 +159,18 @@ def get_feedback_from_db():
         except json.JSONDecodeError:
             feedback_text = feedback[2]  # Agar JSON valid nahi hai toh as-is use karo
 
+        # formatted_feedback.append({
+        #     'username': feedback[0],
+        #     'date': datetime.strptime(feedback[1], '%Y-%m-%d').strftime('%d-%m-%Y'),  # Format change
+        #     'feedback_text': feedback_text
+        # })
         formatted_feedback.append({
             'username': feedback[0],
-            'date': datetime.strptime(feedback[1], '%Y-%m-%d').strftime('%d-%m-%Y'),  # Format change
-            'feedback_text': feedback_text
+            'date': feedback[1],  # ← Don't format here
+            'feedback_text': feedback_text,
+            'display_date': datetime.strptime(feedback[1], '%Y-%m-%d').strftime('%d-%m-%Y')  # for showing only
         })
+
     return formatted_feedback  
 
 @app.route('/delete_feedback', methods=['POST'])
@@ -182,7 +189,7 @@ def delete_feedback():
     conn.close()
 
     flash("Feedback deleted successfully!", "success")
-    return redirect(url_for('view_feedback'))
+    return redirect(request.referrer or url_for('view_feedback'))  # Redirect to the previous page or view_feedback
 
 @app.route('/logout', methods=['POST', 'GET'])
 def logout():
